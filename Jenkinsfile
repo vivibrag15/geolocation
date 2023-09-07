@@ -21,8 +21,19 @@ pipeline{
         }
         stage('upload artifact'){
             steps{
-                sh 'curl --upload-file target/bioMedical-0.0.1-SNAPSHOT.jar -u admin:devops -v http://198.58.119.40:8081/repository/vivi-repo/'
-
+                 'nexusArtifactUploader artifacts: [[artifactId: 'bioMedical',
+                  classifier: '',
+                   file: 'target/bioMedical-0.0.1-SNAPSHOT.jar',
+                    type: 'jar']],
+                     credentialsId: 'NexusID',
+                      groupId: 'qa',
+                       nexusUrl: '198.58.119.40:8081/repositiry/vivi-repo',
+                        nexusVersion: 'nexus3',
+                         protocol: 'http',
+                          repository: 'vivi-repo',
+                           version: '0.0.1'
+            }
+        }
 
     }
 
